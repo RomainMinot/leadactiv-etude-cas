@@ -9,6 +9,7 @@ $localisations = get_the_terms($case_study_id, 'localisation');
 
 $logo_bg_head_url = wp_get_attachment_url(2839);
 $play_logo_url = wp_get_attachment_url(3787);
+$logo_bg_about_url = wp_get_attachment_url(3788);
 
 $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ? $case_study['couleur'] : 'tag-gray';
 ?>
@@ -88,9 +89,9 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                         <?php endif; ?>
 
                         <?php if (get_field('accroche', get_the_ID())): ?>
-                            <p class="single__etude--header--descr f-20 mb-4">
+                            <div class="single__etude--header--descr f-16 mt-3 mb-4">
                                 <?php echo get_field('accroche', get_the_ID()); ?>
-                            </p>
+                            </div>
                         <?php endif; ?>
                         
                     </div>
@@ -170,25 +171,86 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
             break;
             case 'lame_listes_texte': 
     ?>
-        <section class="lame_listes_texte position-relative d-flex align-items-center overflow-hidden bg-light-purple">
+
+        <section class="lame_listes_texte position-relative d-flex align-items-center overflow-hidden">
             <div class="container__lg">
                 <div class="py-3 py-md-8">
-                    <div class="row align-items-top">
-                        <div class="col-12 col-6 col-md-6 col-lg-6 justify-content-left">
-                            <div class="lame_listes_texte__content">
-                                <?php if (!empty($bloc["titre"])): ?>
-                                    <h3 class="mt-0 f-48"><?php echo $bloc["titre"] ?></h3>
-                                <?php endif; ?>
-                                <?php if (!empty($bloc["texte"])): ?>
-                                    <p class="f-16"><?php echo $bloc["texte"] ?>
-                                    <?php endif; ?>
-                                    <?php if (!empty($bloc["bouton"])): ?>
-                                        <a class="btn color-btn-dark px-5" href="<?php echo $bloc["bouton"]['url'] ?>"
-                                            target="<?php echo $bloc["bouton"]['target'] ?>"><?php echo $bloc["bouton"]['title'] ?></a>
-                                    <?php endif; ?>
+                    <div class="row align-items-top justify-content-end">
+                        <div class="col-12 col-md-6 col-lg-4 pr-4">
+                            <div class="single__etude__sticky bg-light-gray">
+                                <?php
+                                if ($etude_fields["logo_client"]): 
+                                ?>
+                                <div class="header-logo">
+                                    <img src="<?php echo $etude_fields["logo_client"]["url"] ?>" alt="<?php echo $etude_fields["logo_client"]["alt"] ?>">
+                                </div>
+                                <?php 
+                                endif; 
+                                ?>
+                                <div class="single__etude__sticky--specs">
+                                    <div>
+                                        <span class="label f-14 mb-1">Secteur</span>
+                                        <div>
+                                            <?php 
+                                                if ($sectors):
+                                                    foreach ($sectors as $sector): 
+                                            ?>
+                                                <span class="tag mb-1 tag-<?php echo $case_color ?>">
+                                                    <?php echo $sector->name; ?>
+                                                </span>
+                                            <?php       
+                                                    endforeach; 
+                                                endif; 
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="label f-14 mb-1">Création</span>
+                                        <div>
+                                            <span class="tag mb-1 tag-white">
+                                                2022
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="label f-14 mb-1">Basé à</span>
+                                        <div>
+                                            <span class="tag mb-1 tag-white">
+                                                Annecy-le-vieux, France
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="label f-14 mb-1">Employés</span>
+                                        <div>
+                                            <span class="tag mb-1 tag-white">
+                                                120
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6 col-md-6 d-flex justify-content-center align-item-center position-relative">
+                        <div class="col-12 col-md-6 col-lg-8 justify-content-left pl-4">
+                            <div class="lame_listes_texte__content bg-light-purple">
+                                <?php if (!empty($bloc["titre"])): ?>
+                                    <h3 class="m-0 f-48"><?php echo $bloc["titre"] ?></h3>
+                                <?php endif; ?>
+                                <?php if (!empty($bloc["texte"])): ?>
+                                    <div class="lame_listes_texte__content--texts f-16"><?php echo $bloc["texte"] ?></div>
+                                <?php endif; ?>
+                                <?php if (!empty($bloc["bouton"])): ?>
+                                    <a class="btn color-btn-dark" href="<?php echo $bloc["bouton"]['url'] ?>"
+                                        target="<?php echo $bloc["bouton"]['target'] ?>"><?php echo $bloc["bouton"]['title'] ?></a>
+                                <?php endif; ?>
+                                <?php 
+                                    if ($logo_bg_about_url):
+                                        echo '<img src="' . esc_url($logo_bg_about_url) . '" alt="Background logo" class="lame_listes_texte__content--logo"/>';
+                                    endif; 
+                                ?>
+                            </div>
+                        </div>
+                        <!--div class="col-12 col-lg-6 col-md-6 d-flex justify-content-center align-item-center position-relative">
                             <?php if (!empty($bloc["liste"])): ?>
                                 <div class="lame_listes_texte__card-container">
                                     <div class="lame_listes_texte__card-content">
@@ -210,7 +272,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                                     </div>
                                 </div>
                             <?php endif; ?>
-                        </div>
+                        </div-->
                     </div>    
                 </div>
             </div>
