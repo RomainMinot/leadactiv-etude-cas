@@ -18,7 +18,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
     <!-- Header -->
     <section class="single__etude--header position-relative bg-white">
         <div class="container__lg">
-            <div class="py-3 pt-md-3 pb-md-8">
+            <div class="py-3 py-md-8">
                 <div class="row align-items-center justify-content-between">
                     <!-- Tags -->
                     <div class="single__etude__tags mb-4 d-flex align-items-center justify-content-start">
