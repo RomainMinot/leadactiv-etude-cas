@@ -109,7 +109,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                                                 <img src="<?php echo $play_logo_url ?>">
                                             </div>
                                         </div>
-                                        <div class="video-embed" >
+                                        <div class="video-embed">
                                             <?php echo $media['url_youtube']; // This will output the oEmbed content ?>
                                         </div>
                                     </div>
@@ -134,9 +134,17 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
     </section>
     <!-- Chiffres -->                        
     <?php 
-    foreach (is_array(get_field('lames_contenu', get_the_ID())) ? get_field('lames_contenu', get_the_ID()) : [] as $bloc):
-        switch ($bloc['acf_fc_layout']):
-            case 'lame_chiffres': 
+        $lames = get_field('lames_contenu', get_the_ID());
+        $filtered_chiffres = array_filter($lames, function($bloc) {
+            return $bloc['acf_fc_layout'] == 'lame_chiffres';
+        }) ?: [];
+        $lames_loop = array_filter($lames, function($bloc) {
+            return $bloc['acf_fc_layout'] != 'lame_chiffres' && $bloc['acf_fc_layout'] != 'lame_etudes_cas';
+        }) ?: [];
+        $filtered_etudes_cas = array_filter($lames, function($bloc) {
+            return $bloc['acf_fc_layout'] == 'lame_etudes_cas';
+        }) ?: [];
+        foreach (is_array($filtered_chiffres) ? $filtered_chiffres : [] as $bloc):
     ?>
         <section class="page__etude--chiffres d-flex overflow-hidden justify-content-center position-relative bg-dark-green">
             <div class="container__lg">                          
@@ -165,73 +173,81 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                         ?>
                     </div>
                 </div>
+            </div>
         </section>
-    <!-- Textes -->
     <?php 
-            break;
-            case 'lame_listes_texte': 
+        endforeach; 
     ?>
-
-        <section class="lame_listes_texte position-relative d-flex align-items-center overflow-hidden">
-            <div class="container__lg">
-                <div class="py-3 py-md-8">
-                    <div class="row align-items-top justify-content-end">
-                        <div class="col-12 col-md-6 col-lg-4 pr-4">
-                            <div class="single__etude__sticky bg-light-gray">
-                                <?php
-                                if ($etude_fields["logo_client"]): 
-                                ?>
-                                <div class="header-logo">
-                                    <img src="<?php echo $etude_fields["logo_client"]["url"] ?>" alt="<?php echo $etude_fields["logo_client"]["alt"] ?>">
+    <!-- Content -->
+    <div class="position-relative d-flex align-items-center overflow-hidden">
+        <div class="container__lg">
+            <div class="py-3 py-md-8">
+                <div class="position-relative row align-items-top justify-content-end">
+                    <!-- Sticky nav -->
+                    <div class="col-12 col-md-6 col-lg-4 pr-4">
+                        <div class="single__etude__sticky bg-light-gray">
+                            <?php
+                            if ($etude_fields["logo_client"]): 
+                            ?>
+                            <div class="header-logo">
+                                <img src="<?php echo $etude_fields["logo_client"]["url"] ?>" alt="<?php echo $etude_fields["logo_client"]["alt"] ?>">
+                            </div>
+                            <?php 
+                            endif; 
+                            ?>
+                            <div class="single__etude__sticky--specs">
+                                <div>
+                                    <span class="label f-14 mb-1">Secteur</span>
+                                    <div>
+                                        <?php 
+                                            if ($sectors):
+                                                foreach ($sectors as $sector): 
+                                        ?>
+                                            <span class="tag mb-1 tag-<?php echo $case_color ?>">
+                                                <?php echo $sector->name; ?>
+                                            </span>
+                                        <?php       
+                                                endforeach; 
+                                            endif; 
+                                        ?>
+                                    </div>
                                 </div>
-                                <?php 
-                                endif; 
-                                ?>
-                                <div class="single__etude__sticky--specs">
+                                <div>
+                                    <span class="label f-14 mb-1">Création</span>
                                     <div>
-                                        <span class="label f-14 mb-1">Secteur</span>
-                                        <div>
-                                            <?php 
-                                                if ($sectors):
-                                                    foreach ($sectors as $sector): 
-                                            ?>
-                                                <span class="tag mb-1 tag-<?php echo $case_color ?>">
-                                                    <?php echo $sector->name; ?>
-                                                </span>
-                                            <?php       
-                                                    endforeach; 
-                                                endif; 
-                                            ?>
-                                        </div>
+                                        <span class="tag mb-1 tag-white">
+                                            2022
+                                        </span>
                                     </div>
+                                </div>
+                                <div>
+                                    <span class="label f-14 mb-1">Basé à</span>
                                     <div>
-                                        <span class="label f-14 mb-1">Création</span>
-                                        <div>
-                                            <span class="tag mb-1 tag-white">
-                                                2022
-                                            </span>
-                                        </div>
+                                        <span class="tag mb-1 tag-white">
+                                            Annecy-le-vieux, France
+                                        </span>
                                     </div>
+                                </div>
+                                <div>
+                                    <span class="label f-14 mb-1">Employés</span>
                                     <div>
-                                        <span class="label f-14 mb-1">Basé à</span>
-                                        <div>
-                                            <span class="tag mb-1 tag-white">
-                                                Annecy-le-vieux, France
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span class="label f-14 mb-1">Employés</span>
-                                        <div>
-                                            <span class="tag mb-1 tag-white">
-                                                120
-                                            </span>
-                                        </div>
+                                        <span class="tag mb-1 tag-white">
+                                            120
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-8 justify-content-left pl-4">
+                    </div>
+                    <!-- Right part -->
+                    <div class="col-12 col-md-6 col-lg-8 justify-content-left pl-4">
+                        <!-- À propos -->
+                        <?php 
+                        foreach (is_array($lames_loop) ? $lames_loop : [] as $bloc):
+                            switch ($bloc['acf_fc_layout']):
+                                case 'lame_a_propos': 
+                        ?>
+                        <section id="about" class="single__etude__section lame_listes_texte">
                             <div class="lame_listes_texte__content bg-light-purple">
                                 <?php if (!empty($bloc["titre"])): ?>
                                     <h3 class="m-0 f-48"><?php echo $bloc["titre"] ?></h3>
@@ -249,39 +265,80 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                                     endif; 
                                 ?>
                             </div>
-                        </div>
-                        <!--div class="col-12 col-lg-6 col-md-6 d-flex justify-content-center align-item-center position-relative">
-                            <?php if (!empty($bloc["liste"])): ?>
-                                <div class="lame_listes_texte__card-container">
-                                    <div class="lame_listes_texte__card-content">
-                                        <?php if (!empty($bloc["titre_liste"])): ?>
-                                            <p class="tag tag-green f-14"><?php echo $bloc["titre_liste"] ?></p>
-                                        <?php endif; ?>
-                                        <div class="content-text">
-                                            <ul class="p-0 m-0 list-unstyled">
-                                                <?php foreach ($bloc["liste"] as $item): ?>
-                                                    <li class="picto-style  d-flex align-items-center">
-                                                        <?php if (!empty($item['picto_item'])): ?>
-                                                            <img src="<?php echo $item['picto_item']['url'] ?>" class="me-5">
-                                                        <?php endif; ?>
-                                                        <?php echo $item['liste_item'] ?>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                        </div-->
-                    </div>    
-                </div>
+                        </section>
+                        <section id="about" class="single__etude__section lame_listes_texte">
+                            <div class="lame_listes_texte__content bg-light-purple">
+                                <?php if (!empty($bloc["titre"])): ?>
+                                    <h3 class="m-0 f-48"><?php echo $bloc["titre"] ?></h3>
+                                <?php endif; ?>
+                                <?php if (!empty($bloc["texte"])): ?>
+                                    <div class="lame_listes_texte__content--texts f-16"><?php echo $bloc["texte"] ?></div>
+                                <?php endif; ?>
+                                <?php if (!empty($bloc["bouton"])): ?>
+                                    <a class="btn color-btn-dark" href="<?php echo $bloc["bouton"]['url'] ?>"
+                                        target="<?php echo $bloc["bouton"]['target'] ?>"><?php echo $bloc["bouton"]['title'] ?></a>
+                                <?php endif; ?>
+                                <?php 
+                                    if ($logo_bg_about_url):
+                                        echo '<img src="' . esc_url($logo_bg_about_url) . '" alt="Background logo" class="lame_listes_texte__content--logo"/>';
+                                    endif; 
+                                ?>
+                            </div>
+                        </section>
+                        <section id="about" class="single__etude__section lame_listes_texte">
+                            <div class="lame_listes_texte__content bg-light-purple">
+                                <?php if (!empty($bloc["titre"])): ?>
+                                    <h3 class="m-0 f-48"><?php echo $bloc["titre"] ?></h3>
+                                <?php endif; ?>
+                                <?php if (!empty($bloc["texte"])): ?>
+                                    <div class="lame_listes_texte__content--texts f-16"><?php echo $bloc["texte"] ?></div>
+                                <?php endif; ?>
+                                <?php if (!empty($bloc["bouton"])): ?>
+                                    <a class="btn color-btn-dark" href="<?php echo $bloc["bouton"]['url'] ?>"
+                                        target="<?php echo $bloc["bouton"]['target'] ?>"><?php echo $bloc["bouton"]['title'] ?></a>
+                                <?php endif; ?>
+                                <?php 
+                                    if ($logo_bg_about_url):
+                                        echo '<img src="' . esc_url($logo_bg_about_url) . '" alt="Background logo" class="lame_listes_texte__content--logo"/>';
+                                    endif; 
+                                ?>
+                            </div>
+                        </section>
+                        <!-- Problématique -->
+                        <?php 
+                                break; 
+                                case 'lame_problematique': 
+                        ?>
+                        <section id="problematique" class="single__etude__section bg-light-purple p-8">
+
+                        </section>
+                        <!-- Accompagnement -->
+                        <?php 
+                                break; 
+                                case 'lame_accompagnement': 
+                        ?>
+                        <section id="accompagnement" class="single__etude__section bg-light-purple p-8">
+
+                        </section>
+                        <!-- Pourquoi -->
+                        <?php 
+                                break; 
+                                case 'lame_pourquoi': 
+                        ?>
+                        <section id="pourquoi" class="single__etude__section bg-light-purple p-8">
+
+                        </section>
+                        <?php 
+                                break; 
+                            endswitch;
+                        endforeach; 
+                        ?>
+                    </div>
+                </div>    
             </div>
-        </section>
-    <!-- Textes images -->
-    <?php 
-            break; 
-            case 'lame_texte_image': 
-    ?>
+        </div>
+    </div>
+    <!-- 'lame_texte_image': 
         <section class="lame_texte_image position-relative d-flex align-items-center justify-content-center overflow-hidden bg-white">
             <div class="container__lg">
                 <div class="py-3 py-md-8">
@@ -319,11 +376,9 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                 </div>
             </div>
         </section>
+    -->
     <!-- Textes images complexes -->
-    <?php 
-            break; 
-            case 'lame_texte_image_complexe': 
-    ?>
+    <!-- 'lame_texte_image_complexe': 
         <section class="position-relative overflow-hidden">
             <div class="container__lg">
                 <div class="py-3 py-md-8">
@@ -374,19 +429,19 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
             </div>
 
         </section>
+    -->
     <!-- Etudes de cas -->
-    <?php 
-            break; 
-            case 'lame_etudes_cas': 
+    <?php
+        foreach (is_array($filtered_etudes_cas) ? $filtered_etudes_cas : [] as $bloc):
     ?>
         <section class="bg-light-gray justify-content-cente">
             <?php echo get_template_part('template-parts/lame', 'etude-cas', ['bloc' => $bloc]) ?>
         </section>
-    <!-- Partie vidéo -->
     <?php 
-            break;
-            case 'lame_temoignage_video': 
+        endforeach; 
     ?>
+    <!-- Partie vidéo -->
+    <!-- 'lame_temoignage_video': 
         <section class="single__etude--temoignage position-relative d-flex align-items-center overflow-hidden bg-dark-green">
             <div class="container__lg">
                 <div class="row align-content-center">
@@ -432,12 +487,8 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                     </div>
                 </div>
             </div>
-        </section>
-    <?php 
-            break; 
-        endswitch;
-    endforeach; 
-    ?>
+        </section> 
+    -->
 </main>
 
 <?php
