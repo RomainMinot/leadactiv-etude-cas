@@ -244,8 +244,8 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                                 <ul class="single__etude__sticky__sections">
                                     <li class="single__etude__sticky__item single__etude__sticky__item--active" data-anchor="a_propos">01. À propos de Geotrend</li>
                                     <li class="single__etude__sticky__item" data-anchor="problematique">02. La problématique</li>
-                                    <li class="single__etude__sticky__item">03. L’accompagnement</li>
-                                    <li class="single__etude__sticky__item">04. Pourquoi Vinatis recommande Geotrend</li>
+                                    <li class="single__etude__sticky__item" data-anchor="accompagnement">03. L’accompagnement</li>
+                                    <li class="single__etude__sticky__item" data-anchor="pourquoi">04. Pourquoi Vinatis recommande Geotrend</li>
                                 </ul>
                             </div>
                         </div>
