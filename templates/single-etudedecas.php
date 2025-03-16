@@ -10,6 +10,8 @@ $localisations = get_the_terms($case_study_id, 'localisation');
 $logo_bg_head_url = wp_get_attachment_url(2839);
 $play_logo_url = wp_get_attachment_url(3787);
 $logo_bg_about_url = wp_get_attachment_url(3788);
+$quote_icon_url = wp_get_attachment_url(3796);
+$quote_icon_url_alt = wp_get_attachment_url(3797);
 
 $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ? $case_study['couleur'] : 'tag-gray';
 ?>
@@ -217,7 +219,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                                         <span class="label f-14 mb-1">Création</span>
                                         <div>
                                             <span class="tag mb-1 tag-white">
-                                                2022
+                                                <?php echo $etude_fields["date_de_creation"]; ?>
                                             </span>
                                         </div>
                                     </div>
@@ -225,7 +227,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                                         <span class="label f-14 mb-1">Basé à</span>
                                         <div>
                                             <span class="tag mb-1 tag-white">
-                                                Annecy-le-vieux, France
+                                                <?php echo $etude_fields["base_a"]; ?>
                                             </span>
                                         </div>
                                     </div>
@@ -233,7 +235,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                                         <span class="label f-14 mb-1">Employés</span>
                                         <div>
                                             <span class="tag mb-1 tag-white">
-                                                120
+                                                <?php echo $etude_fields["nombre_demployes"]; ?>
                                             </span>
                                         </div>
                                     </div>
@@ -244,8 +246,8 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                                 <ul class="single__etude__sticky__sections">
                                     <li class="single__etude__sticky__item single__etude__sticky__item--active" data-anchor="a_propos">01. À propos de Geotrend</li>
                                     <li class="single__etude__sticky__item" data-anchor="problematique">02. La problématique</li>
-                                    <li class="single__etude__sticky__item" data-anchor="accompagnement">03. L’accompagnement</li>
-                                    <li class="single__etude__sticky__item" data-anchor="pourquoi">04. Pourquoi Vinatis recommande Geotrend</li>
+                                    <li class="single__etude__sticky__item" data-anchor="accompagnement">03. L'accompagnement</li>
+                                    <li class="single__etude__sticky__item" data-anchor="pourquoi">04. Pourquoi <?php echo get_the_title(); ?> recommande Leadactiv</li>
                                 </ul>
                             </div>
                         </div>
@@ -283,25 +285,79 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                                 break; 
                                 case 'lame_problematique': 
                         ?>
-                        <section id="problematique" class="single__etude__section px-6 py-6">
-                            <h3 class="m-0 mb-4 f-48">La problématique</h3>
-                            <div class="lame_listes_texte__content--texts f-16 mt-2"><?php echo $bloc["problematique"] ?></div>
+                        <section id="problematique" class="single__etude__section pb-6 border-bottom">
+                            <!-- Problématique -->
+                            <article class="px-6 pt-6">   
+                                <h3 class="m-0 mb-4 f-48">La problématique</h3>
+                                <div class="lame_listes_texte__content--texts f-16 mt-3"><?php echo $bloc["problematique"] ?></div>
+                            </article>
+                            <!-- Témoignage -->
+                            <?php get_template_part('template-parts/card-quote-etude-cas', null, array(
+                                'colorType' => 'peach',
+                                'auteur' => $bloc["auteur"],
+                                'citation' => $bloc["citation"],
+                                'quote_icon_url' => $quote_icon_url
+                            )); ?>
                         </section>
                         <!-- Accompagnement -->
                         <?php 
                                 break; 
                                 case 'lame_accompagnement': 
+                                    $citation_haut = $bloc["citation_haut"];
+                                    $citation_bas = $bloc["citation_bas"];
                         ?>
-                        <section id="accompagnement" class="single__etude__section bg-light-purple p-8">
-
+                        <section id="accompagnement" class="single__etude__section pb-6 border-bottom">
+                            <!-- Problématique -->
+                            <article class="px-6 pt-6">   
+                                <h3 class="m-0 mb-4 f-48">L'accompagnement</h3>
+                            </article>
+                            <!-- Témoignage haut -->
+                            <?php get_template_part('template-parts/card-quote-etude-cas', null, array(
+                                'colorType' => 'green',
+                                'auteur' => $citation_haut["auteur"],
+                                'citation' => $citation_haut["citation"],
+                                'quote_icon_url' => $quote_icon_url_alt
+                            )); ?>
+                            <!-- Témoignage bas -->
+                            <?php get_template_part('template-parts/card-quote-etude-cas', null, array(
+                                'colorType' => 'peach',
+                                'auteur' => $citation_bas["auteur"],
+                                'citation' => $citation_bas["citation"],
+                                'quote_icon_url' => $quote_icon_url
+                            )); ?>
                         </section>
                         <!-- Pourquoi -->
                         <?php 
                                 break; 
                                 case 'lame_pourquoi': 
                         ?>
-                        <section id="pourquoi" class="single__etude__section bg-light-purple p-8">
-
+                        <section id="pourquoi" class="single__etude__section pb-6">
+                            <article class="px-6 pt-6">   
+                                <h3 class="m-0 mb-4 f-48">Pourquoi <?php echo get_the_title(); ?> recommande Leadactiv</h3>
+                            </article>
+                            <!-- Témoignage -->
+                            <?php get_template_part('template-parts/card-quote-etude-cas', null, array(
+                                'colorType' => 'peach',
+                                'auteur' => $citation_bas["auteur"],
+                                'citation' => $citation_bas["citation"],
+                                'quote_icon_url' => $quote_icon_url,
+                                'has_bottom' => true
+                            )); ?>
+                            <!-- More -->
+                            <div class="lame_listes_texte__content bg-light-purple mt-md-6">
+                                <div class="z-2 w-100 gap-5 d-flex flex-column align-items-center justify-content-center">
+                                    <h3 class="m-0 f-36">Envie d’en voir plus ?</h3>
+                                    <?php if (!empty($bloc["bouton"])): ?>
+                                        <a class="btn color-btn-dark" href="<?php echo $bloc["bouton"]['url'] ?>"
+                                            target="<?php echo $bloc["bouton"]['target'] ?>"><?php echo $bloc["bouton"]['title'] ?></a>
+                                    <?php endif; ?>
+                                </div>
+                                <?php 
+                                    if ($logo_bg_about_url):
+                                        echo '<img src="' . esc_url($logo_bg_about_url) . '" alt="Background logo" class="lame_listes_texte__content--logo"/>';
+                                    endif; 
+                                ?>
+                            </div>
                         </section>
                         <?php 
                                 break; 
