@@ -160,7 +160,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                             foreach (is_array($bloc['chiffres']) ? $bloc['chiffres'] : [] as $index => $chiffre): 
                         ?>
                             <div class="d-flex flex-column align-items-start text-start">
-                                <h2 class="page__etude--chiffres--chiffre mt-0 mb-2"><?php echo $chiffre['chiffre']; ?></h2>
+                                <h3 class="page__etude--chiffres--chiffre mt-0 mb-2"><?php echo $chiffre['chiffre']; ?></h3>
                                 <?php if ($chiffre['legende']): ?>
                                     <p class="page__etude--chiffres--legend mb-0"><?php echo $chiffre['legende']; ?></p>
                                 <?php endif; ?>
@@ -264,7 +264,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                         <section id="a_propos" class="single__etude__section lame_listes_texte">
                             <div class="lame_listes_texte__content bg-light-purple">
                                 <?php if (!empty($bloc["titre"])): ?>
-                                    <h3 class="m-0 f-48"><?php echo $bloc["titre"] ?></h3>
+                                    <h2 class="m-0 f-48"><?php echo $bloc["titre"] ?></h2>
                                 <?php endif; ?>
                                 <?php if (!empty($bloc["texte"])): ?>
                                     <div class="lame_listes_texte__content--texts f-16"><?php echo $bloc["texte"] ?></div>
@@ -309,7 +309,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                         <section id="accompagnement" class="single__etude__section pb-6 border-bottom">
                             <!-- Problématique -->
                             <article class="px-6 pt-6">   
-                                <h3 class="m-0 mb-4 f-48">L'accompagnement</h3>
+                                <h2 class="m-0 mb-4 f-48">L'accompagnement</h2>
                             </article>
                             <!-- Témoignage haut -->
                             <?php get_template_part('template-parts/card-quote-etude-cas', null, array(
@@ -318,6 +318,14 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                                 'citation' => $citation_haut["citation"],
                                 'quote_icon_url' => $quote_icon_url_alt
                             )); ?>
+                            <!-- Liste de services -->
+                            <article>   
+                                <h3 class="m-0 f-32 px-6 py-6 lh-sm"><?php echo $bloc["titre_intermediaire"] ?></h3>
+                                <div class="p-5 bg-light-gray">
+
+                                </div>
+                            </article>
+                            
                             <!-- Témoignage bas -->
                             <?php get_template_part('template-parts/card-quote-etude-cas', null, array(
                                 'colorType' => 'peach',
@@ -333,7 +341,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                         ?>
                         <section id="pourquoi" class="single__etude__section pb-6">
                             <article class="px-6 pt-6">   
-                                <h3 class="m-0 mb-4 f-48">Pourquoi <?php echo get_the_title(); ?> recommande Leadactiv</h3>
+                                <h2 class="m-0 mb-4 f-48">Pourquoi <?php echo get_the_title(); ?> recommande Leadactiv</h2>
                             </article>
                             <!-- Témoignage -->
                             <?php get_template_part('template-parts/card-quote-etude-cas', null, array(
