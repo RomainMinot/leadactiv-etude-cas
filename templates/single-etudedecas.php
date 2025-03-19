@@ -321,9 +321,23 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                             <!-- Liste de services -->
                             <article>   
                                 <h3 class="m-0 f-32 px-6 py-6 lh-sm"><?php echo $bloc["titre_intermediaire"] ?></h3>
-                                <div class="p-5 bg-light-gray">
-
+                                <?php 
+                                    $campaigns = $bloc["campagnes"];
+                                    if (is_array($campaigns)):
+                                ?>
+                                <div class="d-flex flex-column gap-3">
+                                    <?php 
+                                    foreach ($campaigns as $index =>$campaign):
+                                        get_template_part('template-parts/card-campaign-etude-cas', null, array(
+                                            'campaign' => $campaign["campagne"],
+                                            'index' => $index + 1
+                                        )); 
+                                    endforeach;
+                                    ?>
                                 </div>
+                                <?php 
+                                    endif;
+                                ?>
                             </article>
                             
                             <!-- Témoignage bas -->
