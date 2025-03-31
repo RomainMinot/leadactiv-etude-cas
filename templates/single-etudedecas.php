@@ -20,10 +20,10 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
     <!-- Header -->
     <section class="single__etude--header position-relative bg-white">
         <div class="container__lg">
-            <div class="py-3 py-md-8">
+            <div class="py-6 py-md-8">
                 <div class="row align-items-center justify-content-between">
                     <!-- Tags -->
-                    <div class="single__etude__tags mb-4 d-flex align-items-center justify-content-start">
+                    <div class="single__etude__tags mb-5 mb-md-4 d-flex align-items-center flex-wrap flex-md-nowrap justify-content-start">
                         <div>
                             <span class="label f-14 mb-1">Secteur</span>
                             <div>
@@ -150,12 +150,12 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
     ?>
         <section class="page__etude--chiffres d-flex overflow-hidden justify-content-center position-relative bg-dark-green">
             <div class="container__lg">                          
-                <div class="d-flex h-100">
+                <div class="d-flex flex-column flex-md-row h-100">
                     <div class="page__etude--chiffres__left text-white d-flex flex-column">
                         <h2 class="f-32 mt-0 mb-3">La collaboration en quelques chiffres</h2>
                         <p class="w-75">*Rendez-vous qualifié : rendez-vous réalisé avec un prospect respectant les critères de ciblage définis par le client</p>
                     </div>
-                    <div class="page__etude--chiffres__right d-flex justify-content-center align-items-center">
+                    <div class="page__etude--chiffres__right d-flex flex-column flex-md-row justify-content-center align-items-center">
                         <?php 
                             foreach (is_array($bloc['chiffres']) ? $bloc['chiffres'] : [] as $index => $chiffre): 
                         ?>
@@ -186,7 +186,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
             <div class="py-3 py-md-8">
                 <div class="position-relative row align-items-top justify-content-end">
                     <!-- Sticky nav -->
-                    <div class="col-12 col-md-6 col-lg-4 pr-4">
+                    <div class="col-12 col-md-6 col-lg-4 px-auto pr-md-4">
                         <div class="single__etude__sticky bg-light-gray d-flex flex-column gap-5">
                             <div>
                                 <?php
@@ -254,7 +254,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                         <div class="landmark__sticky w-100"></div>
                     </div>
                     <!-- Right part -->
-                    <div class="col-12 col-md-6 col-lg-8 justify-content-left pl-4">
+                    <div class="col-12 col-md-6 col-lg-8 justify-content-left px-auto pl-md-4">
                         <!-- À propos -->
                         <?php 
                         foreach (is_array($lames_loop) ? $lames_loop : [] as $bloc):
