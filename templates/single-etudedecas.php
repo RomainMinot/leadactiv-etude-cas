@@ -287,7 +287,7 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                         ?>
                         <section id="problematique" class="single__etude__section pb-6 border-bottom">
                             <!-- Problématique -->
-                            <article class="px-6 pt-6">   
+                            <article class="px-0 px-md-6 pt-4 pb-5 pt-md-6">   
                                 <h3 class="m-0 mb-4 f-48">La problématique</h3>
                                 <div class="lame_listes_texte__content--texts f-16 mt-3"><?php echo $bloc["problematique"] ?></div>
                             </article>
@@ -308,8 +308,8 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                         ?>
                         <section id="accompagnement" class="single__etude__section pb-6 border-bottom">
                             <!-- Problématique -->
-                            <article class="px-6 pt-6">   
-                                <h2 class="m-0 mb-4 f-48">L'accompagnement</h2>
+                            <article class="px-0 px-md-6 pt-5 pb-3 pt-md-6">   
+                                <h3 class="m-0 mb-4 f-48">L'accompagnement</h3>
                             </article>
                             <!-- Témoignage haut -->
                             <?php get_template_part('template-parts/card-quote-etude-cas', null, array(
@@ -320,12 +320,12 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                             )); ?>
                             <!-- Liste de services -->
                             <article>   
-                                <h3 class="m-0 f-32 px-6 py-6 lh-sm"><?php echo $bloc["titre_intermediaire"] ?></h3>
+                                <h3 class="m-0 f-32 px-0 px-md-6 py-5 pt-md-6 lh-sm"><?php echo $bloc["titre_intermediaire"] ?></h3>
                                 <?php 
                                     $campaigns = $bloc["campagnes"];
                                     if (is_array($campaigns)):
                                 ?>
-                                <div class="d-flex flex-column gap-3">
+                                <div class="d-flex flex-column gap-3 mb-5 mb-md-0">
                                     <?php 
                                     foreach ($campaigns as $index =>$campaign):
                                         get_template_part('template-parts/card-campaign-etude-cas', null, array(
@@ -353,9 +353,9 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                                 break; 
                                 case 'lame_pourquoi': 
                         ?>
-                        <section id="pourquoi" class="single__etude__section pb-6">
-                            <article class="px-6 pt-6">   
-                                <h2 class="m-0 mb-4 f-48">Pourquoi <?php echo get_the_title(); ?> recommande Leadactiv</h2>
+                        <section id="pourquoi" class="single__etude__section pb-4 pb-md-6">
+                            <article class="px-0 px-md-6 pt-5 pb-4 pt-md-6">   
+                                <h3 class="m-0 mb-4 f-48">Pourquoi <?php echo get_the_title(); ?> recommande Leadactiv</h3>
                             </article>
                             <!-- Témoignage -->
                             <?php get_template_part('template-parts/card-quote-etude-cas', null, array(
@@ -366,9 +366,9 @@ $case_color = $case_study['couleur'] && $case_study['couleur'] !== 'tag-white' ?
                                 'has_bottom' => true
                             )); ?>
                             <!-- More -->
-                            <div class="lame_listes_texte__content bg-light-purple mt-md-6">
+                            <div class="lame_listes_texte__content bg-light-purple mt-6">
                                 <div class="z-2 w-100 gap-5 d-flex flex-column align-items-center justify-content-center">
-                                    <h3 class="m-0 f-36">Envie d’en voir plus ?</h3>
+                                    <h3 class="text-center text-md-start m-0 f-36">Envie d’en voir plus ?</h3>
                                     <?php if (!empty($bloc["bouton"])): ?>
                                         <a class="btn color-btn-dark" href="<?php echo $bloc["bouton"]['url'] ?>"
                                             target="<?php echo $bloc["bouton"]['target'] ?>"><?php echo $bloc["bouton"]['title'] ?></a>
